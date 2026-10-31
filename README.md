@@ -6,7 +6,23 @@ this is a repo where i attempt to recreate common data-structures in C from scra
 
 ## Vectors
 
-for the dynamic arrays -aka Vectors- i must introduce an easy way to initialize, manage and release the vector, i must ensure no memory leakage, no dangling pointers, and as much versatility as i can possibly add.
+a vector is an array that grows dynamically, unlike other arrays that are of fixe-sizes, a vector grows, of course it's not that simple.
+
+inside a vector is an internal array, when this array is full, the vector will reallocate the space of that array to allow it to accept more elements, so we will have to constantly expand and manage the array.
+
+another challenge is i want to allow the vector to store user-defined types, such as structs and so on
+
+as per the functionality i want to have the following functions:
+
+- new_vector: creates a new vector
+- drop_vector: release the vector and the internal array
+- push: appends to the end
+- pop: removes from the end
+- at: returns the element at a given index, and possibly allow the use of negative value
+- index: returns the index of the first occurrence of the given element
+- \_resize: hidden, it will expand/shrink the internal array on demand, won't be accessible by the user
+
+i also wanted to add `contains` but `index` will do that job instead
 
 ---
 
