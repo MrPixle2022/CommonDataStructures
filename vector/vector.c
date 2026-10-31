@@ -26,7 +26,7 @@ Vector* new_vector(size_t capacity, size_t element_size){
     return vec;
 }
 
-int vector_resize(Vector* vec, size_t new_capacity){
+static int _resize_vector(Vector* vec, size_t new_capacity){
     //if vector is null or if new_capacity is 0 or data is null or element size is 0
     if(vec == NULL || new_capacity == 0 || vec ->_element_size == 0 || vec->_data == NULL) return 1;
 
