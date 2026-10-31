@@ -15,4 +15,10 @@ typedef struct Vector {
 /// @param element_size the size of each individual element, fixed for all, and cannot be changed midway
 /// @return a pointer to the vector object, or `NULL` on failure
 Vector* new_vector(size_t capacity, size_t element_size);
+
+/// @brief resizes the given vector
+/// @param vec the target vector object
+/// @param new_capacity the new capacity value
+/// @return `1` for failure and `0` for success
+int vector_resize(Vector* vec, size_t new_capacity);
 #endif
