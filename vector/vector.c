@@ -29,10 +29,6 @@ Vector* vector_new(size_t capacity, size_t element_size){
     return vec;
 }
 
-/// @brief pushes an element to the end of the vector, fails if vector is invalid, data is invalid, target size is incompatible with the element size of the vector or if resizing fails
-/// @param vec the target vector object
-/// @param element the element to be pushed, must be a pointer to the element
-/// @return `0` for success, `1` for failure
 int vector_push(Vector* vec, void* element){
     //if invalid vector, element or in-compatible size
     if(vec == NULL || element == NULL || sizeof(*element) != vec->_element_size) return 1;
@@ -49,6 +45,19 @@ int vector_push(Vector* vec, void* element){
     memcpy(target, element, vec->_element_size);
     //incrementing the length
     vec->length++;
+    return 0;
+}
+
+int vector_pop(Vector* vec, void* out_element){
+    //basic validator
+    if(vec == NULL || vec->_data == NULL || sizeof(*out_element) != vec->_element_size) return 1;
+
+    //clearing the element
+    void *element = (char*)vec->_data + ((vec->length - 1) * vec->_element_size);
+    if(element != NULL) element = NULL;
+
+    //decreasing the length
+    vec->length--;
     return 0;
 }
 

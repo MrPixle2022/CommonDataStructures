@@ -16,4 +16,15 @@ typedef struct Vector {
 /// @return a pointer to the vector object, or `NULL` on failure
 Vector* vector_new(size_t capacity, size_t element_size);
 
+/// @brief pushes an element to the end of the vector, fails if vector is invalid, internal data is invalid, target size is not the same as the element size of the vector's elements or if resizing fails
+/// @param vec the target vector object
+/// @param element the element to be pushed, must be a pointer to the element
+/// @return `0` for success, `1` for failure
+int vector_push(Vector* vec, void* element);
+
+/// @brief removes the last element in a vector, fails if vector is invalid, internal data is invalid, target element's size is not the same as the size of the vector's elements
+/// @param vec the vector object
+/// @param out_element target element
+/// @return `0` for success, `1` for failure
+int vector_pop(Vector* vec, void* out_element);
 #endif
