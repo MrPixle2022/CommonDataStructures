@@ -71,6 +71,25 @@ void* vector_at(Vector* vec, int index){
     return element;
 }
 
+int vector_index(Vector* vec, void* target){
+    if(vec == NULL || vec->_data == NULL || target == NULL || sizeof(*target) != vec->_element_size) return -1;
+    int index = -1;
+
+    //searching through the elements
+    for(int i = 0; i < vec->length; i++){
+        //extract the element
+        void* element = (char*)vec->_data + (vec->_element_size * i);
+        //check if the element is NULL
+        if(element == NULL) continue;
+        //compare the non-null element
+        if(memcmp(target, element, vec->_element_size) == 0) {
+            index = i;
+            break;
+        };
+    }
+    return index;
+}
+
 /// @brief resizes the vector to the given new capacity
 /// @param vec the target vector object
 /// @param new_capacity the new capacity, if is `0` will return `1`

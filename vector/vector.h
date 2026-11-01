@@ -34,4 +34,9 @@ void* vector_pop(Vector* vec, void* out_element);
 /// @return the element at that index of `NULL`
 void* vector_at(Vector* vec, int index);
 
+/// @brief searches for the index of the first occurrence of the target in the vector
+/// @param vec the vector
+/// @param target the target element
+/// @return the index of the first instance, or `-1` on failure
+int vector_index(Vector* vec, void* target);
 #endif
