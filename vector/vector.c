@@ -54,12 +54,21 @@ void* vector_pop(Vector* vec, void* out_element){
 
     //clearing the element
     void *element = (char*)vec->_data + ((vec->length - 1) * vec->_element_size);
-    if(element != NULL){
-        //decreasing the length
-        vec->length--;
-        return element;
+    if(element == NULL){
+        return NULL;
     };
-    return NULL;
+    //decreasing the length
+    vec->length--;
+    return element;
+}
+
+void* vector_at(Vector* vec, int index){
+    if(vec == NULL || vec->_data == NULL || index > vec->length) return NULL;
+
+    int targetIndex = index >= 0 ? index : vec->length - index; 
+
+    void *element = (char*)vec->_data + (vec->_element_size * targetIndex);
+    return element;
 }
 
 /// @brief resizes the vector to the given new capacity

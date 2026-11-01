@@ -28,4 +28,10 @@ int vector_push(Vector* vec, void* element);
 /// @return the element popped, or `NULL`
 void* vector_pop(Vector* vec, void* out_element);
 
+/// @brief retrieves the element in the vector at the given index
+/// @param vec the vector
+/// @param index the target index, can use negative values to target elements from the end
+/// @return the element at that index of `NULL`
+void* vector_at(Vector* vec, int index);
+
 #endif
