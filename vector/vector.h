@@ -25,6 +25,7 @@ int vector_push(Vector* vec, void* element);
 /// @brief removes the last element in a vector, fails if vector is invalid, internal data is invalid, target element's size is not the same as the size of the vector's elements
 /// @param vec the vector object
 /// @param out_element target element
-/// @return `0` for success, `1` for failure
-int vector_pop(Vector* vec, void* out_element);
+/// @return the element popped, or `NULL`
+void* vector_pop(Vector* vec, void* out_element);
+
 #endif

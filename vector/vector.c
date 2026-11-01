@@ -48,17 +48,18 @@ int vector_push(Vector* vec, void* element){
     return 0;
 }
 
-int vector_pop(Vector* vec, void* out_element){
+void* vector_pop(Vector* vec, void* out_element){
     //basic validator
-    if(vec == NULL || vec->_data == NULL || sizeof(*out_element) != vec->_element_size) return 1;
+    if(vec == NULL || vec->_data == NULL || sizeof(*out_element) != vec->_element_size) return NULL;
 
     //clearing the element
     void *element = (char*)vec->_data + ((vec->length - 1) * vec->_element_size);
-    if(element != NULL) element = NULL;
-
-    //decreasing the length
-    vec->length--;
-    return 0;
+    if(element != NULL){
+        //decreasing the length
+        vec->length--;
+        return element;
+    };
+    return NULL;
 }
 
 /// @brief resizes the vector to the given new capacity
