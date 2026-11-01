@@ -95,11 +95,9 @@ void* vector_pop(Vector* vec){
 }
 
 void* vector_at(Vector* vec, int index){
-    if(vec == NULL || vec->_data == NULL || index > vec->length) return NULL;
+    if(vec == NULL || vec->_data == NULL || index > vec->length || index < 0) return NULL;
 
-    int targetIndex = index >= 0 ? index : (int)vec->length + index; 
-
-    void *element = (char*)vec->_data + (vec->_element_size * targetIndex);
+    void *element = (char*)vec->_data + ((int)vec->_element_size * index);
     return element;
 }
 

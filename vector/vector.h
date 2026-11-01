@@ -30,7 +30,7 @@ void* vector_pop(Vector* vec);
 
 /// @brief retrieves the element in the vector at the given index
 /// @param vec the vector
-/// @param index the target index, can use negative values to target elements from the end
+/// @param index the target index
 /// @return the element at that index of `NULL`
 void* vector_at(Vector* vec, int index);
 
