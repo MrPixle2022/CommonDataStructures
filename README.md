@@ -14,7 +14,7 @@ another challenge is i want to allow the vector to store user-defined types, suc
 
 as per the functionality i want to have the following functions:
 
-- new_vector: creates a new vector
+- new: creates a new vector
 - drop_vector: release the vector and the internal array
 - push: appends to the end
 - pop: removes from the end
