@@ -2,6 +2,41 @@
 #include <string.h>
 #include <stdlib.h>
 
+
+/// @brief resizes the vector to the given new capacity
+/// @param vec the target vector object
+/// @param new_capacity the new capacity, if is `0` will return `1`
+/// @return returns `1` for errors, and `0` for success
+int _resize_vector(Vector* vec, size_t new_capacity){
+    //if vector is null or if new_capacity is 0 or data is null or element size is 0
+    if(vec == NULL || new_capacity == 0 || vec ->_element_size == 0 || vec->_data == NULL) return 1;
+
+    //actual reallocation
+    void* temp = realloc(vec->_data, vec->_element_size * new_capacity);
+    if(temp == NULL) return 1;
+    vec->_data = temp;
+    //reassign capacity and length
+    vec->capacity = new_capacity;
+    //if the new_capacity is less than the length (the vector shrinks)
+    vec ->length = vec->length > new_capacity? new_capacity : vec-> length;
+    return 0;
+}
+
+/// @brief release the vector
+/// @param vec the target vector pointer
+void _free_vector(Vector* vec){
+    //if the vector is invalid
+    if(vec == NULL) return;
+    // if the data is valid clear it
+    if(vec->_data != NULL){
+        free(vec->_data);
+        //just in case
+        vec->_data = NULL;
+    }
+    free(vec);
+    return;
+}
+
 Vector* vector_new(size_t capacity, size_t element_size){
     //allocated vector
     Vector *vec = malloc(sizeof(Vector));
@@ -31,10 +66,10 @@ Vector* vector_new(size_t capacity, size_t element_size){
 
 int vector_push(Vector* vec, void* element){
     //if invalid vector, element or in-compatible size
-    if(vec == NULL || element == NULL || sizeof(*element) != vec->_element_size) return 1;
+    if(vec == NULL || element == NULL) return 1;
 
     //if vector is max size, resize it
-    if(vec->length >= (vec->capacity) - 1){
+    if(vec->length >= vec->capacity){
         //resizing the vector to double its capacity
         if(_resize_vector(vec, vec->capacity * 2) != 0) return 1;
     }
@@ -48,15 +83,12 @@ int vector_push(Vector* vec, void* element){
     return 0;
 }
 
-void* vector_pop(Vector* vec, void* out_element){
+void* vector_pop(Vector* vec){
     //basic validator
-    if(vec == NULL || vec->_data == NULL || sizeof(*out_element) != vec->_element_size) return NULL;
+    if(vec == NULL || vec->_data == NULL || vec->length == 0) return NULL;
 
     //clearing the element
     void *element = (char*)vec->_data + ((vec->length - 1) * vec->_element_size);
-    if(element == NULL){
-        return NULL;
-    };
     //decreasing the length
     vec->length--;
     return element;
@@ -65,22 +97,20 @@ void* vector_pop(Vector* vec, void* out_element){
 void* vector_at(Vector* vec, int index){
     if(vec == NULL || vec->_data == NULL || index > vec->length) return NULL;
 
-    int targetIndex = index >= 0 ? index : vec->length - index; 
+    int targetIndex = index >= 0 ? index : (int)vec->length + index; 
 
     void *element = (char*)vec->_data + (vec->_element_size * targetIndex);
     return element;
 }
 
 int vector_index(Vector* vec, void* target){
-    if(vec == NULL || vec->_data == NULL || target == NULL || sizeof(*target) != vec->_element_size) return -1;
+    if(vec == NULL || vec->_data == NULL || target == NULL) return -1;
     int index = -1;
 
     //searching through the elements
     for(int i = 0; i < vec->length; i++){
         //extract the element
         void* element = (char*)vec->_data + (vec->_element_size * i);
-        //check if the element is NULL
-        if(element == NULL) continue;
         //compare the non-null element
         if(memcmp(target, element, vec->_element_size) == 0) {
             index = i;
@@ -88,38 +118,4 @@ int vector_index(Vector* vec, void* target){
         };
     }
     return index;
-}
-
-/// @brief resizes the vector to the given new capacity
-/// @param vec the target vector object
-/// @param new_capacity the new capacity, if is `0` will return `1`
-/// @return returns `1` for errors, and `0` for success
-static int _resize_vector(Vector* vec, size_t new_capacity){
-    //if vector is null or if new_capacity is 0 or data is null or element size is 0
-    if(vec == NULL || new_capacity == 0 || vec ->_element_size == 0 || vec->_data == NULL) return 1;
-
-    //reassign capacity and length
-    vec->capacity = new_capacity;
-    //if the new_capacity is less than the length (the vector shrinks)
-    vec ->length = vec->length > new_capacity? new_capacity : vec-> length;
-    //actual reallocation
-    void* temp = realloc(vec->_data, vec->_element_size * new_capacity);
-    if(temp == NULL) return 1;
-    vec->_data = temp;
-    return 0;
-}
-
-/// @brief release the vector
-/// @param vec the target vector pointer
-static void _free_vector(Vector* vec){
-    //if the vector is invalid
-    if(vec == NULL) return;
-    // if the data is valid clear it
-    if(vec->_data != NULL){
-        free(vec->_data);
-        //just in case
-        vec->_data = NULL;
-    }
-    free(vec);
-    return;
 }

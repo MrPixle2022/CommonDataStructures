@@ -1,4 +1,4 @@
-#include "stddef.h"
+#include <stddef.h>
 
 #ifndef VECTOR_H
 #define VECTOR_H
@@ -26,7 +26,7 @@ int vector_push(Vector* vec, void* element);
 /// @param vec the vector object
 /// @param out_element target element
 /// @return the element popped, or `NULL`
-void* vector_pop(Vector* vec, void* out_element);
+void* vector_pop(Vector* vec);
 
 /// @brief retrieves the element in the vector at the given index
 /// @param vec the vector
