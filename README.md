@@ -28,4 +28,15 @@ i also wanted to add `contains` but `index` will do that job instead
 
 ## Singly-linked list
 
-very similar to the dynamic array, except this time each node points to the next one, depending on how much utility functions i am willing to define this may prove exhausting or annoying, hell even both, only time will tell
+very similar to the dynamic array, except this time each node points to the next one, unlike arrays, structs and vectors, linked lists are not stored in contiguous memory, each node is somewhere different.
+
+we traverse the list by reading the pointer to the next node in the list, the last one (tail) points to `NULL`
+
+for the singly-linked list list i want it to have the following:
+
+- new: create a new linked list
+- append: push a new node at the end -new tail-
+- add: push a node at a certain index
+- delete: drops a node, links it's previous to it's next
+- index: the index of a node
+- at: return the node at a certain index
